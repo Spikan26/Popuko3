@@ -1,0 +1,17 @@
+{
+  "name": "popuko",
+  "version": "1.0.0",
+  "description": "Spikan's Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Spikan",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "ffmpeg": "0.0.4",
+    "fs": "0.0.1-security",
+    "opusscript": "0.0.6"
+  }
+}
