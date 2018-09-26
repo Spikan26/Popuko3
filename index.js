@@ -128,7 +128,7 @@ bot.on("message", function (message) {
 				break
 				
 				
-			case "gitout":
+			/*case "gitout":
 				if(message.author.id != 178483636671086592){
 					message.channel.send("You can't do that !");
 					return
@@ -153,7 +153,7 @@ bot.on("message", function (message) {
 					await temp_channel.delete();
 					message.reply("Done");
 				}
-				break
+				break*/
 				
 				
 			/*case "up":
