@@ -44,7 +44,7 @@ bot.on("message", function (message) {
 			case "help":
 				if (!args[1])
 				{
-					message.channel.send("List of commands : `//random`, `//list`, `//large`, `mak.help`");
+					message.channel.send("List of commands : `//random`, `//list`, `//large`, `//gitout`");
 					message.channel.send("Normal Usage : `::[name of the emoji]`	(example : `::citron`)")
 					return;
 				}
@@ -128,7 +128,7 @@ bot.on("message", function (message) {
 				break
 				
 				
-			/*case "gitout":
+			case "gitout":
 				if(message.author.id != 178483636671086592){
 					message.channel.send("You can't do that !");
 					return
@@ -151,12 +151,9 @@ bot.on("message", function (message) {
 					await member.setVoiceChannel(temp_channel);
 					 
 					await temp_channel.delete();
-					 
-					// Finally, pass some user response to show it all worked out:
-					message.react('??');
-					/* or just "message.reply", etc.. up to you! 
+					message.reply("Done");
 				}
-				break*/
+				break
 				
 				
 			/*case "up":
@@ -174,7 +171,7 @@ bot.on("message", function (message) {
 	}
 	
 	
-	
+	/*
 	if (!message.guild) return;
 	if (message.content.toLowerCase().startsWith(PREFIX_SOUND)){
 		
@@ -206,7 +203,7 @@ bot.on("message", function (message) {
 			}
 		}
 	}
-	
+	*/
 	
 
     //Si ne commence pas par le PREFIX, ignore
