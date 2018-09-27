@@ -34,10 +34,10 @@ bot.on("message", async message => {
 	if (message.author.equals(bot.user)) return;
 	
 	if (message.content.startsWith("//gitout")){
-		if(message.author.id != 178483636671086592){
+		/*if(message.author.id != 178483636671086592){
 					message.channel.send("You can't do that !");
 					return
-				} else {
+				} else {*/
 					// Make sure the bot user has permissions to make channels and move members in the guild:
 					if (!message.guild.me.hasPermission(['MANAGE_CHANNELS', 'MOVE_MEMBERS'])) return message.reply('Missing the required `Manage Channels` and `Move Members` permissions.');
 					 
@@ -61,7 +61,7 @@ bot.on("message", async message => {
 				}
 	
 	
-	}
+	//}
 });
 
 
