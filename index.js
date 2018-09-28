@@ -80,7 +80,7 @@ bot.on("message", async message => {
 			
 			case "list":
 				msgembed = "";
-				for(var i=0;i<ListEmoji.length; i++){
+				for(var i=0;i<99; i++){
 					msgembed += ListEmoji[i]
 					i++
 				}
