@@ -80,15 +80,95 @@ bot.on("message", async message => {
 			
 			case "list":
 				msgembed = "";
-				for(var i=0;i<60; i++){
-					msgembed += ListEmoji[i]
-					i++
+				currentpage = 1;
+				limit = Math.ceil(ListEmoji.length / 50)
+				var authormenu = message.author.id;
+				var authornick = message.author.username
+				var i = (currentpage - 1) * 50;
+				for(var j=0;j<5; j++){
+					for(var i;i<(j*10)+10; i++){
+						if(ListEmoji[i] != undefined){
+							msgembed += ListEmoji[i];
+						} else {
+							msgembed += "";
+						}
+					}
+					msgembed += "\n";
 				}
+				message.delete();
 				message.channel.send({"embed": {
-					"title": "Page 1/3",
+					"title": "Page "+currentpage+"/"+limit+"			" + authornick,
 					"description": "\n" + msgembed,
-					"color": 7003894
-				}});
+					"color": 10608183
+				}}).then(function (message) {
+						message.react('⏪');
+						message.react('⏩');
+					message.react('❌')
+					.then(() => {
+						const filter = (reaction, user) => reaction.emoji.name === '⏪' || reaction.emoji.name === '❌' || reaction.emoji.name === '⏩' && user.id === authormenu;
+						const collector = message.createReactionCollector(filter);
+						collector.on('collect', function(r){
+							if(r.count > 1){	
+								if (r.emoji.name == '❌'){
+									message.delete();
+								} else if(r.emoji.name == '⏪') {
+									if(currentpage > 1){
+										currentpage--;
+										msgembed = "";
+										var i = (currentpage - 1) * 50;
+										for(var j=0;j<5; j++){
+											for(var i;i<((currentpage -1) *50)+(j*10)+10; i++){
+												if(ListEmoji[i] != undefined){
+													msgembed += ListEmoji[i];
+												} else {
+													msgembed += "";
+												}
+											}
+											msgembed += "\n";
+										}
+										const newEmbed = new Discord.RichEmbed({
+											title: "Page "+currentpage+"/"+limit+"			" + authornick,
+											description: "\n" + msgembed,
+											"color": 10608183
+										});
+										
+										message.edit(newEmbed)
+										message.reactions.get('⏪').remove(authormenu);
+									} else {
+										message.reactions.get('⏪').remove(authormenu);
+									}
+								} else if(r.emoji.name == '⏩') {
+									if(currentpage < limit){
+										currentpage++;
+										msgembed = "";
+										var i = (currentpage - 1) * 50;
+										for(var j=0;j<5; j++){
+											for(var i;i<((currentpage -1) *50)+(j*10)+10; i++){
+												if(ListEmoji[i] != undefined){
+													msgembed += ListEmoji[i];
+												} else {
+													msgembed += "";
+												}
+											}
+											msgembed += "\n";
+										}
+										const newEmbed = new Discord.RichEmbed({
+											title: "Page "+currentpage+"/"+limit+"			" + authornick,
+											description: "\n" + msgembed,
+											"color": 10608183
+										});
+										
+										message.edit(newEmbed)
+										message.reactions.get('⏩').remove(authormenu);
+									} else {
+										message.reactions.get('⏩').remove(authormenu);
+									}
+								}
+							}
+						})
+					})
+					
+				});
 				break
 				
 		}
@@ -142,27 +222,7 @@ bot.on("message", function (message) {
 					var guild = bot.guilds;
 					console.log(guild);
 				}
-			
-			/*case "list":
-				if (!args[1]) currentPage = 0;
-				else currentPage = args[1] - 1; //check if int
-				if (currentPage > pageTot){
-					message.channel.send("Page not found");
-					return;
-				}
-				message.delete();
-				const embed = new Discord.RichEmbed()
-				var limit = 24 + (24 * currentPage);
-				if(ListEmoji.length - (25 * currentPage) < 25) limit = ListEmoji.length;
-					for(var i=(24 * currentPage);i<limit; i++){	
-						var testemoji = ListEmoji[i];
-						embed.addField(testemoji,
-							ListEmoji[i+1], true)
-						i++
-					}
-				message.channel.send({ embed});
-				message.channel.send("Page " + (currentPage + 1) + " / " + (pageTot + 1));
-				break*/
+
 				
 			case "large":
 			
