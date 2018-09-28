@@ -33,37 +33,69 @@ bot.on("message", async message => {
 	
 	if (message.author.equals(bot.user)) return;
 	
-	if (message.content.startsWith("//gitout")){
-		/*if(message.author.id != 178483636671086592){
-					message.channel.send("You can't do that !");
-					return
-				} else {*/
-					// Make sure the bot user has permissions to make channels and move members in the guild:
-					if (!message.guild.me.hasPermission(['MANAGE_CHANNELS', 'MOVE_MEMBERS'])) return message.reply('Missing the required `Manage Channels` and `Move Members` permissions.');
-					 
-					// Get the mentioned user/bot and check if they're in a voice channel:
-					const member = message.mentions.members.first();
-					if (!member) return message.reply('You need to @mention a user/bot to kick from the voice channel.');
-					if (!member.voiceChannel) return message.reply('That user/bot isn\'t in a voice channel.');
-					 
-					// Now we make a temporary voice channel, move the user/bot into the channel, and delete it:
-					const guild = message.guild;
-					const temp_channel = await message.guild.createChannel(member.id, 'voice', [
-					  { id: guild.id,
-						deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK'], },
-					  { id: member.id,
-						deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK'] }
-					]);
-					await member.setVoiceChannel(temp_channel);
-					 
-					await temp_channel.delete();
+	if (message.content.startsWith(PREFIXCOMMAND)){
+		
+		var args = message.content.substring(PREFIXCOMMAND.length).split(" ");	
+		
+		const emojiList = bot.emojis.map(e=>e.toString()).join("#");
+		var ListEmoji = emojiList.split("#");			
+		var pageTot = Math.floor(ListEmoji.length / 25);
+		
+		switch (args[0].toLowerCase()) {		//async commands with // prefix	
+			
+			case "gitout":
+				/*if(message.author.id != 178483636671086592 || message.author.id != 242355725852999683){
+						message.channel.send("You can't do that !");
+						return
+					} else {*/
+						// Make sure the bot user has permissions to make channels and move members in the guild:
+						if (!message.guild.me.hasPermission(['MANAGE_CHANNELS', 'MOVE_MEMBERS'])) return message.reply('Missing the required `Manage Channels` and `Move Members` permissions.');
+						 
+						// Get the mentioned user/bot and check if they're in a voice channel:
+						const member = message.mentions.members.first();
+						if (!member) return message.reply('You need to @mention a user/bot to kick from the voice channel.');
+						if (!member.voiceChannel) return message.reply('That user/bot isn\'t in a voice channel.');
+						 
+						// Now we make a temporary voice channel, move the user/bot into the channel, and delete it:
+						const guild = message.guild;
+						const temp_channel = await message.guild.createChannel(member.id, 'voice', [
+						  { id: guild.id,
+							deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK'], },
+						  { id: member.id,
+							deny: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK'] }
+						]);
+						await member.setVoiceChannel(temp_channel);
+						 
+						await temp_channel.delete();
+						message.react('🚪');
+						break
+						
+			case "halp":
+				message.channel.send("I wanna be a react menu")
+				.then(function (message) {
 					message.react('🚪');
+					lastmenuid = message.id;
+				});
+				break
+			
+			case "list":
+				msgembed = "";
+				for(var i=0;i<ListEmoji.length; i++){
+					msgembed += ListEmoji[i]
+					i++
 				}
+				message.channel.send({"embed": {
+					"title": "Page 1/3",
+					"description": "\n" + msgembed,
+					"color": 7003894
+				}});
+				break
+				
+		}
 	
 	
-	//}
+	}
 });
-
 
 bot.on("message", function (message) {
     
@@ -111,7 +143,7 @@ bot.on("message", function (message) {
 					console.log(guild);
 				}
 			
-			case "list":
+			/*case "list":
 				if (!args[1]) currentPage = 0;
 				else currentPage = args[1] - 1; //check if int
 				if (currentPage > pageTot){
@@ -130,7 +162,7 @@ bot.on("message", function (message) {
 					}
 				message.channel.send({ embed});
 				message.channel.send("Page " + (currentPage + 1) + " / " + (pageTot + 1));
-				break
+				break*/
 				
 			case "large":
 			
