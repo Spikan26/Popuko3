@@ -323,7 +323,14 @@ bot.on("message", function (message) {
 	}
 	if (messageBuild != null) {
 		message.delete();
-		message.reply(messageBuild);
+		message.channel.send({"embed": {
+					"author": {
+						"name": message.author.username,
+						"icon_url": message.author.avatarURL
+					},
+					"description": messageBuild,
+					"color": 7135480
+				}})
 	}
 });
 
