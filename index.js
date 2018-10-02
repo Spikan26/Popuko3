@@ -285,9 +285,9 @@ bot.on("message", function (message) {
 				{
 						var namemoji = args[1].split(":");
 						if (namemoji[1] == null){
-							var large = bot.emojis.find((val => val.name === namemoji[0]););
+							var large = bot.emojis.find(val => val.name === namemoji[0]);
 						} else {
-							var large = bot.emojis.find((val => val.name === namemoji[1]););
+							var large = bot.emojis.find(val => val.name === namemoji[1]);
 						}
 					
 					if (large != null)
