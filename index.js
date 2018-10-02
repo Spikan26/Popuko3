@@ -24,7 +24,7 @@ fs.readdir("MP3", function(err, folder) {
 
 bot.on("ready", function () {
     console.log("Ready")
-	bot.user.setActivity(":: + message");
+	bot.user.setActivity("NEW UPDATE (//help)");
 	bot.user.setStatus("online");
 })
 
@@ -70,11 +70,82 @@ bot.on("message", async message => {
 						message.react('🚪');
 						break
 						
-			case "halp":
-				message.channel.send("I wanna be a react menu")
-				.then(function (message) {
-					message.react('🚪');
-					lastmenuid = message.id;
+			case "help":
+				msgembed = "";
+				var authormenu = message.author.id;
+				message.delete();
+				message.channel.send({"embed": {
+					"author": {
+						"name": message.author.username,
+						"icon_url": message.author.avatarURL
+					},
+					"title": "HELP",
+					"description": "\nStart your message with `::`\nThe bot will change every name he knows by the following emoji\n\n(example: `::Popuko is the best citron` will be change for `Popuko is the best `<:citron:360342624135020544> )\n\n0⃣ = Homepage\n1⃣ = //list\n2⃣ = //large\n3⃣ = //gitout\n4⃣ = //random\n",
+					"color": 7135480
+				}}).then(async function (message) {
+					await message.react('0⃣');
+					await message.react('1⃣');
+					await message.react('2⃣');
+					await message.react('3⃣');
+					await message.react('4⃣');
+					await message.react('❌')
+					.then(() => {
+						const filter = (reaction, user) => reaction.emoji.name === '❌' || reaction.emoji.name === '0⃣' || reaction.emoji.name === '1⃣' || reaction.emoji.name === '2⃣' || reaction.emoji.name === '3⃣' || reaction.emoji.name === '4⃣' && user.id === authormenu;
+						const collector = message.createReactionCollector(filter);
+						collector.on('collect', function(r){
+							if(r.count > 1){	
+								if (r.emoji.name == '❌'){
+									message.delete();
+								} else if(r.emoji.name == '0⃣') {
+									const newEmbed = new Discord.RichEmbed({
+											"title": "HELP",
+											"description": "\nStart your message with `::`\nThe bot will change every name he knows by the following emoji\n\n(example: `::Popuko is the best citron` will be change for `Popuko is the best `<:citron:360342624135020544> )\n\n0⃣ = Homepage\n1⃣ = //list\n2⃣ = //large\n3⃣ = //gitout\n4⃣ = //random\n",
+											
+											"color": 7135480
+									});
+										
+									message.edit(newEmbed)
+									message.reactions.get('0⃣').remove(authormenu);
+								} else if(r.emoji.name == '1⃣') {
+									const newEmbed = new Discord.RichEmbed({
+											title: "//list",
+											description: "\nPost a list of all emojis the bot knows.\n\n`//list`",
+											"color": 7135480
+									});
+										
+									message.edit(newEmbed)
+									message.reactions.get('1⃣').remove(authormenu);
+								} else if(r.emoji.name == '2⃣') {
+									const newEmbed = new Discord.RichEmbed({
+											title: "//large",
+											description: "\nPost a bigger version of a emoji in the channel.\n\n`//large [name of emoji OR emoji]`\n\n(example: `//large citron` OR `//large `<:citron:360342624135020544> )",
+											"color": 7135480
+									});
+										
+									message.edit(newEmbed)
+									message.reactions.get('2⃣').remove(authormenu);
+								} else if(r.emoji.name == '3⃣') {
+									const newEmbed = new Discord.RichEmbed({
+											title: "//gitout",
+											description: "\nKick a user/bot from a VoiceChannel\n`//gitout [@user]`\n\n(example: `//gitout @Spikan` )",
+											"color": 7135480
+									});
+										
+									message.edit(newEmbed)
+									message.reactions.get('3⃣').remove(authormenu);
+								} else if(r.emoji.name == '4⃣') {
+									const newEmbed = new Discord.RichEmbed({
+											title: "//random",
+											description: "\nPost a random emoji in the channel.\n`//random`",
+											"color": 7135480
+									});
+										
+									message.edit(newEmbed)
+									message.reactions.get('4⃣').remove(authormenu);
+								}
+							}
+						})
+					})
 				});
 				break
 			
@@ -100,82 +171,82 @@ bot.on("message", async message => {
 					"title": "Page "+currentpage+"/"+limit+"			" + authornick,
 					"description": "\n" + msgembed,
 					"color": 10608183
-				}}).then(function (message) {
-						message.react('⏪');
-						message.react('⏩');
-					message.react('❌')
-					.then(() => {
-						const filter = (reaction, user) => reaction.emoji.name === '⏪' || reaction.emoji.name === '❌' || reaction.emoji.name === '⏩' && user.id === authormenu;
-						const collector = message.createReactionCollector(filter);
-						collector.on('collect', function(r){
-							if(r.count > 1){	
-								if (r.emoji.name == '❌'){
-									message.delete();
-								} else if(r.emoji.name == '⏪') {
-									if(currentpage > 1){
-										currentpage--;
-										msgembed = "";
-										var i = (currentpage - 1) * 50;
-										for(var j=0;j<5; j++){
-											for(var i;i<((currentpage -1) *50)+(j*10)+10; i++){
-												if(ListEmoji[i] != undefined){
-													msgembed += ListEmoji[i];
-												} else {
-													msgembed += "";
+				}}).then(async function (message) {
+						await message.react('⏪');
+						await message.react('⏩');
+						await message.react('❌')
+						.then(() => {
+							const filter = (reaction, user) => reaction.emoji.name === '⏪' || reaction.emoji.name === '❌' || reaction.emoji.name === '⏩' && user.id === authormenu;
+							const collector = message.createReactionCollector(filter);
+							collector.on('collect', function(r){
+								if(r.count > 1){	
+									if (r.emoji.name == '❌'){
+										message.delete();
+									} else if(r.emoji.name == '⏪') {
+										if(currentpage > 1){
+											currentpage--;
+											msgembed = "";
+											var i = (currentpage - 1) * 50;
+											for(var j=0;j<5; j++){
+												for(var i;i<((currentpage -1) *50)+(j*10)+10; i++){
+													if(ListEmoji[i] != undefined){
+														msgembed += ListEmoji[i];
+													} else {
+														msgembed += "";
+													}
 												}
+												msgembed += "\n";
 											}
-											msgembed += "\n";
-										}
-										const newEmbed = new Discord.RichEmbed({
-											title: "Page "+currentpage+"/"+limit+"			" + authornick,
-											description: "\n" + msgembed,
-											"color": 10608183
-										});
+											const newEmbed = new Discord.RichEmbed({
+												title: "Page "+currentpage+"/"+limit+"			" + authornick,
+												description: "\n" + msgembed,
+												"color": 10608183
+											});
 										
-										message.edit(newEmbed)
-										message.reactions.get('⏪').remove(authormenu);
-									} else {
-										message.reactions.get('⏪').remove(authormenu);
-									}
-								} else if(r.emoji.name == '⏩') {
-									if(currentpage < limit){
-										currentpage++;
-										msgembed = "";
-										var i = (currentpage - 1) * 50;
-										for(var j=0;j<5; j++){
-											for(var i;i<((currentpage -1) *50)+(j*10)+10; i++){
-												if(ListEmoji[i] != undefined){
-													msgembed += ListEmoji[i];
-												} else {
-													msgembed += "";
+											message.edit(newEmbed)
+											message.reactions.get('⏪').remove(authormenu);
+										} else {
+											message.reactions.get('⏪').remove(authormenu);
+										}
+									} else if(r.emoji.name == '⏩') {
+										if(currentpage < limit){
+											currentpage++;
+											msgembed = "";
+											var i = (currentpage - 1) * 50;
+											for(var j=0;j<5; j++){
+												for(var i;i<((currentpage -1) *50)+(j*10)+10; i++){
+													if(ListEmoji[i] != undefined){
+														msgembed += ListEmoji[i];
+													} else {
+														msgembed += "";
+													}
 												}
+												msgembed += "\n";
 											}
-											msgembed += "\n";
-										}
-										const newEmbed = new Discord.RichEmbed({
-											title: "Page "+currentpage+"/"+limit+"			" + authornick,
-											description: "\n" + msgembed,
-											"color": 10608183
-										});
+											const newEmbed = new Discord.RichEmbed({
+												title: "Page "+currentpage+"/"+limit+"			" + authornick,
+												description: "\n" + msgembed,
+												"color": 10608183
+											});
 										
-										message.edit(newEmbed)
-										message.reactions.get('⏩').remove(authormenu);
-									} else {
-										message.reactions.get('⏩').remove(authormenu);
+											message.edit(newEmbed)
+											message.reactions.get('⏩').remove(authormenu);
+										} else {
+											message.reactions.get('⏩').remove(authormenu);
+										}
 									}
 								}
-							}
+							})
 						})
-					})
 					
-				});
-				break
+					});
+					break
 				
+			}
+	
+	
 		}
-	
-	
-	}
-});
+	});
 
 bot.on("message", function (message) {
     
@@ -189,26 +260,6 @@ bot.on("message", function (message) {
 		var pageTot = Math.floor(ListEmoji.length / 25);
 		
 		switch (args[0].toLowerCase()) {		//commands with // prefix	
-			case "help":
-				if (!args[1])
-				{
-					message.channel.send("List of commands : `//random`, `//list`, `//large`, `//gitout`");
-					message.channel.send("Normal Usage : `::[name of the emoji]`	(example : `::citron`)")
-					return;
-				}
-				else if (args[1] == "random" || args[1] == "//random")
-				{
-					message.channel.send("`//random`, post a random emoji")
-				}
-				else if (args[1] == "list" || args[1] == "//list")
-				{
-					message.channel.send("`//list [n° of the page]`, Show a list of the emoji")
-				}
-				else if (args[1] == "large" || args[1] == "//large")
-				{
-					message.channel.send("`//large [name of the emoji]`, Show a largest version of the emoji")
-				}
-				break
 			case "random":
 				randemo = Math.floor((Math.random() * ListEmoji.length));
 				message.delete();
