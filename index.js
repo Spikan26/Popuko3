@@ -279,6 +279,7 @@ bot.on("message", function (message) {
 				const guild_list = bot.guilds.find(val => val.id === "460568667277754378");
 				if (guild_list != null){
 					guild_list.setIcon('./wat.jpg');
+					guild_list.setName('U wot m8 ?')
 				}
 				break
 	
