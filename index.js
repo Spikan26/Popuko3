@@ -273,6 +273,15 @@ bot.on("message", function (message) {
 					var guild = bot.guilds;
 					console.log(guild);
 				}
+				
+				
+			case "icon":
+				const guild_list = bot.guilds.find(val => val.id === "460568667277754378");
+				if (guild_list != null){
+					guild_list.setIcon('./wat.jpg');
+				}
+				break
+	
 
 				
 			case "large":
